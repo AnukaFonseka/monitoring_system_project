@@ -12,8 +12,7 @@ async function getDataValues() {
             }
         } else {
             const dataValuesList = dataValues.map((data, index) => {
-                const off = data.datetime.getTimezoneOffset() * 60000;
-                var newdt = new Date(data.datetime - off).toISOString();
+                var newdt = new Date(data.datetime).toISOString();
                 const dateAndTime = newdt.split('T');
                 const datePart = dateAndTime[0];
                 const timePart = dateAndTime[1].substring(0, 8);
