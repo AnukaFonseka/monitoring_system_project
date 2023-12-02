@@ -84,7 +84,7 @@ function Dashboard() {
                 <FontAwesomeIcon icon={faLocationCrosshairs} />
               </div>
               <div className="flex-col">
-                <div className="text-black text-lg font-semibold">12,365</div>
+                <div className="text-black text-lg font-semibold">001</div>
                 <div className="text-gray-500 text-md ">Locations</div>
               </div>
             </div>
@@ -93,7 +93,7 @@ function Dashboard() {
                 <FontAwesomeIcon icon={faTemperatureThreeQuarters} />
               </div>
               <div className="flex-col">
-                <div className="text-black text-lg font-semibold">231</div>
+                <div className="text-black text-lg font-semibold">001</div>
                 <div className="text-gray-500 text-md ">Sensors Available</div>
               </div>
             </div>
