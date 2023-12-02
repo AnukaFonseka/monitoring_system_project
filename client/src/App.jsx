@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import Signin from "./pages/signin";
 import Dashboard from "./pages/Dashboard";
+import Signin from "./pages/Signin";
 
 function App() {
   return (

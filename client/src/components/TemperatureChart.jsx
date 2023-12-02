@@ -1,15 +1,13 @@
-import React from "react";
+import React, { useMemo, useState } from "react";
 import ReactApexChart from "react-apexcharts";
 import { InfinitySpin } from "react-loader-spinner";
 import { DateRangePicker } from "rsuite";
+import { useGetChartDataQuery } from "../store/api/chartDataApi";
 
-function TemperatureChart(props) {
-  //   const data = props.chartData;
-  const loading = props.loading;
-  const error = props.error;
-  const dateFilter = props.dateFilter;
-  const startDate = props.startDate;
-
+function TemperatureChart() {
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const { data: chartData, isLoading, isError } = useGetChartDataQuery();
   const styles = {
     loadingContainer: {
       display: "flex",
@@ -19,31 +17,33 @@ function TemperatureChart(props) {
     },
   };
 
-  // Mock data when the backend is not available
-  const mockData = {
-    categories: [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ],
-    series: [[50, 60, 50, 30, 50, 60, 50, 60, 40, 80, 50, 60]],
-  };
+  const filteredChartData = useMemo(() => {
+    if (!startDate || !endDate) {
+      return chartData?.payload || [];
+    }
 
-  const data = mockData;
+    return (
+      chartData?.payload.filter((data) => {
+        const dataDate = new Date(data.date).toISOString().split("T")[0];
+        return dataDate >= startDate && dataDate <= endDate;
+      }) || []
+    );
+  }, [chartData, startDate, endDate]);
+
+  const series = [
+    {
+      name: "Temperature",
+      data: filteredChartData.map((data) => ({
+        x: new Date(data.date).getTime(),
+        y: data.temperature,
+      })),
+      color: "#e482ef",
+    },
+  ];
 
   const chartOptions = {
     chart: {
-      type: "bar",
-      stacked: false,
+      type: "line",
       toolbar: {
         show: true,
       },
@@ -52,31 +52,17 @@ function TemperatureChart(props) {
       },
     },
     plotOptions: {
-      bar: {
-        horizontal: false,
+      line: {
         dataLabels: {
           enabled: false,
         },
       },
     },
     xaxis: {
-      type: "category",
-      categories: data?.categories || [],
+      type: "datetime",
+      categories: filteredChartData.map((data) => data.date),
       labels: {
-        formatter: function (value) {
-          if (dateFilter === 1 || dateFilter === null) {
-            // Display month and year
-            const date = new Date(value);
-            const month = date.toLocaleString("default", { month: "short" });
-            const year = date.getFullYear();
-            return `${month} ${year}`;
-          } else if (dateFilter === 2 && startDate) {
-            // Use data.categories when dateFilter is 2
-            return data?.categories[value] || value;
-          } else {
-            return value;
-          }
-        },
+        show: filteredChartData.length > 0,
       },
     },
     yaxis: {
@@ -84,32 +70,32 @@ function TemperatureChart(props) {
         formatter: function (value) {
           const nf = Intl.NumberFormat("en-US", {
             compactDisplay: "short",
-            notation: "compact",
+            notation: "standard",
           });
           return nf.format(value);
         },
-      },
-    },
-    legend: {
-      position: "right",
-      offsetY: 40,
-      markers: {
-        offsetX: -10,
       },
     },
     fill: {
       opacity: 1,
     },
   };
-  let series = [
-    {
-      name: "Temperature",
-      data: data?.series?.[0] || [],
-      color: "#e482ef",
-    },
-  ];
 
-  console.log(data);
+  const handleDateRangeChange = (value) => {
+    if (value && value.length === 2) {
+      setStartDate(value[0].toISOString().split("T")[0]);
+      setEndDate(value[1].toISOString().split("T")[0]);
+    } else {
+      setStartDate(null);
+      setEndDate(null);
+    }
+  };
+
+  if (!isLoading) {
+    console.log("chartData", chartData);
+    console.log("filteredChartData", filteredChartData);
+
+  }
 
   return (
     <div className="flex-col items-center justify-left p-10 pt-5 bg-white m-10 mt-0 rounded-xl">
@@ -120,19 +106,19 @@ function TemperatureChart(props) {
           placeholder="Select Date Range"
           style={{ width: 250 }}
           autoComplete="off"
-        //   onOk={handleDateRangeSelect}
+          onChange={handleDateRangeChange}
         />
       </div>
       <div>
         <div id="chart">
-          {loading ? (
+          {isLoading ? (
             <div style={styles.loadingContainer}>
               <InfinitySpin width="200" color="#4fa94d" />
               <p>Loading data...</p>
             </div>
-          ) : error ? (
-            <p>Error: {error}</p>
-          ) : data ? (
+          ) : isError ? (
+            <p>Error: {chartData?.error}</p>
+          ) : chartData ? (
             <ReactApexChart
               options={chartOptions}
               series={series}

@@ -2,9 +2,9 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBell,
-  faBolt,
   faCircleUser,
   faGear,
+  faTree,
 } from "@fortawesome/free-solid-svg-icons";
 
 const Navbar = () => {
@@ -12,7 +12,7 @@ const Navbar = () => {
     <nav className="bg-white fixed z-50 pl-12 pr-12 border-b-2	w-full flex h-16 items-center justify-between ">
       <div className="flex items-center space-x-4 cursor-pointer">
         <div className="rounded bg-purple-600 w-5 h-5 flex items-center justify-center text-sm text-white">
-          <FontAwesomeIcon icon={faBolt} />
+          <FontAwesomeIcon icon={faTree} />
         </div>
         <div className="text-black text-2xl font-semibold">
           Monitoring System
