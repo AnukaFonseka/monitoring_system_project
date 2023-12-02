@@ -8,7 +8,7 @@ import {
   faRightFromBracket,
   faTemperatureThreeQuarters,
 } from "@fortawesome/free-solid-svg-icons";
-import TemperatureChart from "../components/TemperatureChart";
+import Charts from "../components/Charts";
 import HumidityChart from "../components/HumidityChart";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -98,8 +98,7 @@ function Dashboard() {
               </div>
             </div>
           </div>
-          <TemperatureChart />
-          <HumidityChart />
+          <Charts />
         </div>
       </div>
     </div>
