@@ -1,12 +1,12 @@
 import React, { useMemo, useState } from "react";
 import ReactApexChart from "react-apexcharts";
 import { InfinitySpin } from "react-loader-spinner";
-import { DateRangePicker } from "rsuite";
+import { DatePicker, DateRangePicker } from "rsuite";
 import { useGetChartDataQuery } from "../store/api/chartDataApi";
 
 function TemperatureChart() {
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
+  const currentDate = new Date().toLocaleDateString('en-CA');
+  const [selectedDate, setSelectedDate] = useState(currentDate);
   const { data: chartData, isLoading, isError } = useGetChartDataQuery();
   const styles = {
     loadingContainer: {
@@ -17,26 +17,18 @@ function TemperatureChart() {
     },
   };
 
-  const filteredChartData = useMemo(() => {
-    if (!startDate || !endDate) {
-      return chartData?.payload || [];
-    }
-
-    return (
-      chartData?.payload.filter((data) => {
-        const dataDate = new Date(data.date).toISOString().split("T")[0];
-        return dataDate >= startDate && dataDate <= endDate;
-      }) || []
-    );
-  }, [chartData, startDate, endDate]);
+  const filteredData = useMemo(() => {
+    return chartData?.payload.filter((data) => data.date === selectedDate);
+  }, [chartData, selectedDate]);
 
   const series = [
     {
       name: "Temperature",
-      data: filteredChartData.map((data) => ({
-        x: new Date(data.date).getTime(),
-        y: data.temperature,
-      })),
+      data:
+        filteredData?.map((data) => ({
+          x: new Date(`${data.date} ${data.time}`).getTime(),
+          y: data.temperature,
+        })) || [],
       color: "#e482ef",
     },
   ];
@@ -60,9 +52,9 @@ function TemperatureChart() {
     },
     xaxis: {
       type: "datetime",
-      categories: filteredChartData.map((data) => data.date),
+      categories: filteredData?.map((data) => data.time) || [],
       labels: {
-        show: filteredChartData.length > 0,
+        show: filteredData?.length > 0,
       },
     },
     yaxis: {
@@ -81,32 +73,29 @@ function TemperatureChart() {
     },
   };
 
-  const handleDateRangeChange = (value) => {
-    if (value && value.length === 2) {
-      setStartDate(value[0].toISOString().split("T")[0]);
-      setEndDate(value[1].toISOString().split("T")[0]);
+  const handleDateChange = (value) => {
+    if (value) {
+      setSelectedDate(value.toISOString().split("T")[0]);
     } else {
-      setStartDate(null);
-      setEndDate(null);
+      setSelectedDate(null);
     }
   };
 
   if (!isLoading) {
+    console.log("date", selectedDate);
     console.log("chartData", chartData);
-    console.log("filteredChartData", filteredChartData);
-
   }
 
   return (
     <div className="flex-col items-center justify-left p-10 pt-5 bg-white m-10 mt-0 rounded-xl">
       <div className="flex w-full justify-between items-center mb-10">
         <div className="text-black text-lg font-semibold">Temperature</div>
-        <DateRangePicker
-          showOneCalendar
+        <DatePicker
+          oneTap
           placeholder="Select Date Range"
           style={{ width: 250 }}
           autoComplete="off"
-          onChange={handleDateRangeChange}
+          onChange={handleDateChange}
         />
       </div>
       <div>
@@ -118,7 +107,7 @@ function TemperatureChart() {
             </div>
           ) : isError ? (
             <p>Error: {chartData?.error}</p>
-          ) : chartData ? (
+          ) : filteredData ? (
             <ReactApexChart
               options={chartOptions}
               series={series}
