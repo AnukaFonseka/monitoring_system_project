@@ -37,26 +37,28 @@ function Dashboard() {
       <Navbar />
       <div className="flex pt-16 w-screen max-h-screen">
         <div className="flex flex-col w-1/4 pt-10">
-          <div className="flex w-full items-center justify-center">
-            <div className="rounded-full bg-purple-600 w-10 h-10 flex items-center justify-center text-xl text-white mr-3">
-              <FontAwesomeIcon icon={faGauge} />
-            </div>
-            <div className="flex-col">
-              <div className="text-black text-lg font-semibold">
-                Monitoring System
+          <div className="absolute w-1/5">
+            <div className="flex w-full items-center justify-center">
+              <div className="rounded-full bg-purple-600 w-10 h-10 flex items-center justify-center text-xl text-white mr-3">
+                <FontAwesomeIcon icon={faGauge} />
               </div>
-              <div className="text-gray-500 text-md ">Parent Company</div>
+              <div className="flex-col">
+                <div className="text-black text-lg font-semibold">
+                  Monitoring System
+                </div>
+                <div className="text-gray-500 text-md ">Parent Company</div>
+              </div>
             </div>
+            <div className="flex items-center justify-left m-5 mt-10 pl-3 rounded-md text-purple-500 bg-slate-100">
+              <div className=" w-10 h-10 flex items-center justify-center text-xl">
+                <FontAwesomeIcon icon={faGrip} />
+              </div>
+              <div className="flex-col">
+                <div className=" text-md font-semibold">Dashboard</div>
+              </div>
+            </div>
+            <hr className=" mt-0 m-5 border-b-2" />
           </div>
-          <div className="flex items-center justify-left m-5 mt-10 pl-3 rounded-md text-purple-500 bg-slate-100">
-            <div className=" w-10 h-10 flex items-center justify-center text-xl">
-              <FontAwesomeIcon icon={faGrip} />
-            </div>
-            <div className="flex-col">
-              <div className=" text-md font-semibold">Dashboard</div>
-            </div>
-          </div>
-          <hr className=" mt-0 m-5 border-b-2" />
           <div className="h-full flex flex-col justify-end">
             <div
               onClick={handleLogout}
