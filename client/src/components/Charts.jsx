@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from "react";
 import ReactApexChart from "react-apexcharts";
 import { InfinitySpin } from "react-loader-spinner";
-import { DatePicker, DateRangePicker } from "rsuite";
+import { DatePicker } from "rsuite";
 import { useGetChartDataQuery } from "../store/api/chartDataApi";
 
 function Charts() {
@@ -21,13 +21,25 @@ function Charts() {
     return chartData?.payload.filter((data) => data.date === selectedDate);
   }, [chartData, selectedDate]);
 
-  const series = [
+  const tempSeries = [
     {
       name: "Temperature",
       data:
         filteredData?.map((data) => ({
           x: new Date(`${data.date} ${data.time}`).getTime(),
           y: data.temperature,
+        })) || [],
+      color: "#e482ef",
+    },
+  ];
+
+  const humSeries = [
+    {
+      name: "Temperature",
+      data:
+        filteredData?.map((data) => ({
+          x: new Date(`${data.date} ${data.time}`).getTime(),
+          y: data.humidity,
         })) || [],
       color: "#e482ef",
     },
@@ -111,7 +123,7 @@ function Charts() {
             ) : filteredData ? (
               <ReactApexChart
                 options={chartOptions}
-                series={series}
+                series={tempSeries}
                 type="line"
                 height={300}
               />
@@ -124,13 +136,13 @@ function Charts() {
       <div className="flex-col items-center justify-left p-10 pt-5 bg-white m-10 mt-0 rounded-xl">
         <div className="flex w-full justify-between items-center mb-10">
           <div className="text-black text-lg font-semibold">Humidity</div>
-          <DatePicker
+          {/* <DatePicker
             oneTap
             placeholder="Select Date Range"
             style={{ width: 250 }}
             autoComplete="off"
             onChange={handleDateChange}
-          />
+          /> */}
         </div>
         <div>
           <div id="chart">
@@ -141,10 +153,10 @@ function Charts() {
               </div>
             ) : isError ? (
               <p>Error: {chartData?.error}</p>
-            ) : filteredData ? (
+            ) : filteredData? (
               <ReactApexChart
                 options={chartOptions}
-                series={series}
+                series={humSeries}
                 type="line"
                 height={300}
               />
