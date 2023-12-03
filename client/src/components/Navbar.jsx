@@ -11,10 +11,10 @@ const Navbar = () => {
   return (
     <nav className="bg-white fixed z-50 pl-12 pr-12 border-b-2	w-full flex h-16 items-center justify-between ">
       <div className="flex items-center space-x-4 cursor-pointer">
-        <div className="rounded bg-purple-600 w-5 h-5 flex items-center justify-center text-sm text-white">
+        <div className="rounded bg-green-800 w-5 h-5 flex items-center justify-center text-sm text-white">
           <FontAwesomeIcon icon={faTree} />
         </div>
-        <div className="text-black text-2xl font-semibold">
+        <div className="text-amber-900 text-2xl font-semibold">
           Monitoring System
         </div>
       </div>

@@ -29,7 +29,7 @@ function Charts() {
           x: new Date(`${data.date} ${data.time}`).getTime(),
           y: data.temperature,
         })) || [],
-      color: "#e482ef",
+      color: "#8CB06D",
     },
   ];
 
@@ -41,7 +41,7 @@ function Charts() {
           x: new Date(`${data.date} ${data.time}`).getTime(),
           y: data.humidity,
         })) || [],
-      color: "#e482ef",
+      color: "#8CB06D",
     },
   ];
 

@@ -39,7 +39,7 @@ function Dashboard() {
         <div className="flex flex-col w-1/4 pt-10">
           <div className="absolute w-1/5">
             <div className="flex w-full items-center justify-center">
-              <div className="rounded-full bg-purple-600 w-10 h-10 flex items-center justify-center text-xl text-white mr-3">
+              <div className="rounded-full bg-green-800 w-10 h-10 flex items-center justify-center text-xl text-white mr-3">
                 <FontAwesomeIcon icon={faGauge} />
               </div>
               <div className="flex-col">
@@ -49,7 +49,7 @@ function Dashboard() {
                 <div className="text-gray-500 text-md ">Parent Company</div>
               </div>
             </div>
-            <div className="flex items-center justify-left m-5 mt-10 pl-3 rounded-md text-purple-500 bg-slate-100">
+            <div className="flex items-center justify-left m-5 mt-10 pl-3 rounded-md text-green-900 bg-slate-100">
               <div className=" w-10 h-10 flex items-center justify-center text-xl">
                 <FontAwesomeIcon icon={faGrip} />
               </div>
@@ -62,7 +62,7 @@ function Dashboard() {
           <div className="h-full flex flex-col justify-end">
             <div
               onClick={handleLogout}
-              className="absolute w-1/6 flex items-center justify-center cursor-pointer m-5 mt-10 rounded-md text-black bg-slate-200 hover:bg-slate-300 transition-all"
+              className="absolute w-1/6 flex items-center justify-center cursor-pointer m-5 mt-10 rounded-md text-white bg-amber-900 hover:bg-slate-300 transition-all"
             >
               <div className=" w-10 h-10 flex items-center justify-center text-xl">
                 <FontAwesomeIcon icon={faRightFromBracket} />
@@ -80,7 +80,7 @@ function Dashboard() {
           </div>
           <div className="flex">
             <div className="flex w-full items-center justify-left pl-10 bg-white m-10 mt-0 h-24 rounded-xl">
-              <div className="rounded-full bg-purple-600 w-10 h-10 flex items-center justify-center text-xl text-white mr-5">
+              <div className="rounded-full bg-green-800 w-10 h-10 flex items-center justify-center text-xl text-white mr-5">
                 <FontAwesomeIcon icon={faLocationCrosshairs} />
               </div>
               <div className="flex-col">
@@ -89,7 +89,7 @@ function Dashboard() {
               </div>
             </div>
             <div className="flex w-full items-center justify-left pl-10 bg-white m-10 mt-0 h-24 rounded-xl">
-              <div className="rounded-full bg-purple-600 w-10 h-10 flex items-center justify-center text-xl text-white mr-5">
+              <div className="rounded-full bg-green-800 w-10 h-10 flex items-center justify-center text-xl text-white mr-5">
                 <FontAwesomeIcon icon={faTemperatureThreeQuarters} />
               </div>
               <div className="flex-col">
