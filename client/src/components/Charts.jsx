@@ -35,7 +35,7 @@ function Charts() {
 
   const humSeries = [
     {
-      name: "Temperature",
+      name: "Humidity",
       data:
         filteredData?.map((data) => ({
           x: new Date(`${data.date} ${data.time}`).getTime(),
