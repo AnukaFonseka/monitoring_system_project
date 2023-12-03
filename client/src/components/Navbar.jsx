@@ -14,7 +14,7 @@ const Navbar = () => {
         <div className="rounded bg-green-800 w-5 h-5 flex items-center justify-center text-sm text-white">
           <FontAwesomeIcon icon={faTree} />
         </div>
-        <div className="text-amber-900 text-2xl font-semibold">
+        <div className="text-black text-2xl font-semibold">
           Monitoring System
         </div>
       </div>

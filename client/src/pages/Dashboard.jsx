@@ -23,6 +23,7 @@ function Dashboard() {
       showCancelButton: true,
       showConfirmButton: true,
       confirmButtonText: "Yes, Log out!",
+      confirmButtonColor: '#3f6212'
     }).then((result) => {
       if (result.isConfirmed) {
         localStorage.clear();
@@ -62,7 +63,7 @@ function Dashboard() {
           <div className="h-full flex flex-col justify-end">
             <div
               onClick={handleLogout}
-              className="absolute w-1/6 flex items-center justify-center cursor-pointer m-5 mt-10 rounded-md text-white bg-amber-900 hover:bg-slate-300 transition-all"
+              className="absolute w-1/6 flex items-center justify-center cursor-pointer m-5 mt-10 rounded-md text-white bg-black hover:bg-green-900 transition-all"
             >
               <div className=" w-10 h-10 flex items-center justify-center text-xl">
                 <FontAwesomeIcon icon={faRightFromBracket} />
